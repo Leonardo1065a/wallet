@@ -1,0 +1,61 @@
+@import 'assets/scss/variables.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: map-get($wave-theme, 400);
+  color: map-get($wave-contrast, 400);
+  min-width: 200px;
+  height: 100vh;
+  position: relative;
+
+  .header,
+  .content,
+  .footer {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .header {
+    display: flex;
+    min-height: 90px;
+
+    i {
+      background: map-get($wave-theme, 'highlight');
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+    }
+
+    span {
+      font-weight: 500;
+    }
+  }
+
+  .content {
+    .menu:first-child {
+      margin-top: 0;
+    }
+
+    .menu {
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 12px;
+      cursor: pointer;
+
+      &.active {
+        background-color: map-get($wave-theme, 300);
+      }
+    }
+  }
+
+  .footer {
+    border-top: 1px solid map-get($wave-theme, 300);
+    margin-top: 16px;
+
+    .log-out {
+      cursor: pointer;
+      padding: 24px 8px;
+    }
+  }
+}

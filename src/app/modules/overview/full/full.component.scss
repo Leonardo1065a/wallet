@@ -1,0 +1,47 @@
+@import 'assets/scss/variables.scss';
+
+:host {
+  width: 100%;
+
+  .cards {
+    flex-wrap: wrap;
+
+    .card {
+      background: map-get($wave-theme, 300);
+      color: map-get($wave-contrast, 300);
+      min-width: 160px;
+
+      .content {
+        .title {
+          font-weight: 500;
+
+          i {
+            background-color: map-get($wave-theme, 400);
+            color: map-get($wave-contrast, 400);
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 4px;
+          }
+        }
+
+        .data {
+          font-weight: 900;
+          letter-spacing: 1px;
+        }
+
+        .up {
+          background: #000;
+          width: max-content;
+          padding: 0 8px;
+          color: map-get($wave-theme, 'highlight');
+          background: map-get($wave-contrast, 'highlight');
+          border-radius: 0.375rem;
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

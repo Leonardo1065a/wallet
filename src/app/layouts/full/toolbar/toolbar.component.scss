@@ -1,0 +1,29 @@
+@import 'assets/scss/variables.scss';
+
+:host {
+  width: 100%;
+
+  .content {
+    min-height: 90px;
+
+    .notifications,
+    .profile {
+      width: 32px;
+      height: 32px;
+      background: map-get($wave-theme, 300);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+
+      i {
+        font-size: 18px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

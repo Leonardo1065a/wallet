@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/variables';
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+$primary: map-get($wave-theme, 'main');
+
+$theme-colors: (
+  'primary': map-get($wave-theme, 'main'),
+  'secondary': map-get($wave-theme, 500),
+  'grey': #d1d1d1,
+  'black': #000000,
+  'light': #ffffff,
+  'transparentt': transparent,
+  'success': #198754,
+  'danger': #bb2d3b
+);
+
+$colors: (
+  'primary': map-get($wave-contrast, 'main'),
+  'secondary': map-get($wave-contrast, 500),
+  'grey': #d1d1d1,
+  'black': #000000,
+  'light': #ffffff
+);
+
+body {
+  background-color: map-get($wave-theme, 500);
+  color: map-get($wave-contrast, 500);
+}
