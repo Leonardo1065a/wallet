@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
   menus = [
-    { name: 'Overview', icon: 'dashboard' },
-    { name: 'Wallet', icon: 'account_balance_wallet' },
+    { name: 'Overview', icon: 'dashboard', routeTo: '/overview' },
+    { name: 'Wallet', icon: 'account_balance_wallet', routeTo: '/wallet' },
     { name: 'Swap Crypto', icon: 'swap_horizontal_circle' },
     { name: 'Transactions', icon: 'schedule' },
     { name: 'Markets', icon: 'insert_chart' }

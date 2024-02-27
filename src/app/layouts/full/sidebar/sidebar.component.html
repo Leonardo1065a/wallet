@@ -8,10 +8,7 @@
 <div class="d-flex flex-column justify-content-between h-100 content">
   <div class="d-flex flex-column">
     <ng-container *ngFor="let menu of menus">
-      <div
-        class="d-flex gap-2 menu"
-        [ngClass]="{ active: menu.name == 'Overview' }"
-      >
+      <div class="d-flex gap-2 menu" routerLinkActive="active" [routerLink]="menu.routeTo">
         <i class="material-symbols-outlined"> {{ menu.icon }} </i>
         <span class="fs-6"> {{ menu.name }} </span>
       </div>
