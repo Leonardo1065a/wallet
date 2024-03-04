@@ -1,0 +1,120 @@
+:host {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    overflow-y: auto;
+
+    thead tr {
+      background: #f8fafb;
+      color: #1f2024;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.42px;
+
+      th {
+        padding: 8px;
+        height: auto;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          border: 1px solid #ddd;
+          height: 120px;
+          width: 180px;
+          text-align: center;
+          background-color: #ffffff;
+
+          .body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            padding: 16px;
+
+            &.no-current-month {
+              .day {
+                color: #bdc1c7;
+              }
+
+              .data {
+                opacity: 0.4;
+              }
+            }
+
+            .day {
+              display: flex;
+              justify-content: center;
+              color: #1f2024;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 18px;
+              letter-spacing: 0.42px;
+              margin-bottom: 24px;
+
+              &.current-date {
+                background-color: #0273e8;
+                color: white;
+                padding: 4px;
+                border-radius: 4px;
+                margin-bottom: 16px;
+              }
+            }
+
+            .data {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              .value {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                border-radius: 8px;
+                width: max-content;
+                padding: 8px;
+                color: #545a63;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 16px;
+                letter-spacing: 0.36px;
+                text-align: left;
+                white-space: nowrap;
+                cursor: pointer;
+                background-color: #f7f7f7;
+
+                i {
+                  width: 4px;
+                  height: 16px;
+                  border-radius: 4px;
+                  background-color: #545a63;
+                }
+
+                &.up {
+                  background: #f7f9fd;
+
+                  i {
+                    background-color: #2c5aa4;
+                  }
+                }
+
+                &.down {
+                  background: #fdf7f8;
+
+                  i {
+                    background-color: #e2708b;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

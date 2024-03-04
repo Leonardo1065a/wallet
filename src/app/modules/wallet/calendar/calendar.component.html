@@ -1,0 +1,47 @@
+<section class="calendar">
+  <div class="d-flex justify-content-between align-items-center header">
+    <div class="title">{{ title }}</div>
+    <div class="actions">
+      <button (click)="currentDate = addMonths(-1)"><</button>
+      <span>{{ currentDate | date : 'MMMM' }}</span>
+      <button (click)="currentDate = addMonths(1)">></button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let day of headers">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of getCalendarWeeks(currentDate)">
+        <td *ngFor="let day of week">
+          <div
+            class="body"
+            *ngIf="true || !verificarMesAtual(day)"
+            [ngClass]="{ 'no-current-month': verificarMesAtual(day) }"
+            (click)="dayClicked.next(day)"
+          >
+            <span class="day" [ngClass]="{ 'current-date': isToday(day) }">
+              {{ day | date : 'dd' }}
+            </span>
+            <div class="data">
+              <ng-container *ngIf="data[day.toISOString().split('T')[0]]">
+                <span
+                  *ngFor="let item of data[day.toISOString().split('T')[0]]"
+                  class="value"
+                  (click)="valueClicked.next({day, item})"
+                  [ngClass]="item.class"
+                >
+                  <i></i>
+                  {{ item.value }}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
