@@ -3,7 +3,8 @@
     width: 100%;
     border-collapse: collapse;
     white-space: nowrap;
-    overflow-y: auto;
+    border-radius: 8px;
+    overflow: hidden;
 
     thead tr {
       background: #f8fafb;
@@ -57,12 +58,16 @@
               letter-spacing: 0.42px;
               margin-bottom: 24px;
 
-              &.current-date {
+              &.current-day {
                 background-color: #0273e8;
                 color: white;
                 padding: 4px;
                 border-radius: 4px;
                 margin-bottom: 16px;
+              }
+
+              &.is-clickable {
+                cursor: pointer;
               }
             }
 

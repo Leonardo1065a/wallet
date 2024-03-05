@@ -1,119 +1,147 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
+interface Data {
+  day: string;
+  data: {
+    value: string;
+    class: string;
+  };
+}
+
+interface Week {
+  isToday: boolean;
+  day: Date;
+  isCurrentMonth: boolean;
+}
 export class Calendar {
   currentDate: Date;
+  headers?: string[];
+  data?: Data[];
+  title?: string;
+  showPreviousNextBtn?: boolean;
+  showPeriodBeforeAndAfter?: boolean;
+  actionWhenClickOnDay?: boolean;
+  style?: {
+    headerColor: string;
+    bodyColor: string;
+  };
 
-  constructor(currentDate: Date, options: {}) {}
+  constructor(options: Calendar) {
+    this.currentDate = options?.currentDate;
+    this.data = options?.data;
+    this.title = options?.title;
+    this.showPeriodBeforeAndAfter = options?.showPeriodBeforeAndAfter || false;
+    this.actionWhenClickOnDay = options?.actionWhenClickOnDay || false;
+    this.showPreviousNextBtn = options?.showPreviousNextBtn || true;
+
+    this.headers = options.headers || [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ];
+  }
 }
 
 @Component({
-  selector: 'app-calendar',
+  selector: 'app-calendar[calendar]',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent {
-  currentDate: Date = new Date();
+export class CalendarComponent implements OnChanges {
+  @Input() calendar: Calendar = new Calendar({ currentDate: new Date() });
 
-  @Input() data: any = {};
-
-  @Input() title: any = {};
-
-  @Input() headers: string[] = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ];
-
-  @Output() valueClicked = new EventEmitter();
+  @Output() dataClicked = new EventEmitter();
 
   @Output() dayClicked = new EventEmitter();
 
+  _currentDate: Date;
+
+  _events: any = {};
+
+  _weeks: Week[][];
+
   constructor() {}
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      [
-        { date: '2024-03-09', data: { value: 'R$ 1.964.768,00', class: 'down' } },
-        { date: '2024-03-09', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-03-15', data: { value: 'R$ 1.964.768,00', class: 'down' } },
-        { date: '2024-03-15', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-03-21', data: { value: 'R$ 1.964.768,00', class: 'down' } },
-        { date: '2024-03-21', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-03-30', data: { value: 'R$ 1.964.768,00', class: 'down' } },
-        { date: '2024-03-30', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-02-28', data: { value: 'R$ 335.696.673,00', class: 'down' } },
-        { date: '2024-02-28', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-04-03', data: { value: 'R$ 335.696.673,00', class: 'down' } },
-        { date: '2024-04-03', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-03-12', data: { value: 'R$ 335.696.673,00', class: 'up' } },
-        { date: '2024-03-05', data: { value: 'R$ 335.696.673,00', class: 'down' } },
-        { date: '2024-03-04', data: { value: 'R$ 411.911,00', class: 'down' } },
-        { date: '2024-03-04', data: { value: 'R$ 851.911,00', class: 'up' } },
-        { date: '2024-03-31', data: { value: 'R$ 615.211,00', class: 'down' } },
-        { date: '2024-03-31', data: { value: 'R$ 673,00', class: 'up' } }
-      ].forEach((_) => {
-        this.addData(_.date, _.data);
-      });
-    }, 1000);
-
-    console.log('aqui', this.data);
-  }
-
-  addData(date: string, event: any): void {
-    console.log(date);
-
-    if (!this.data[date]) {
-      this.data[date] = [];
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['calendar']) {
+      const { currentValue } = changes['calendar'];
+      if (currentValue && JSON.stringify(currentValue !== '{}')) {
+        this.init();
+      }
     }
-    this.data[date].push(event);
   }
 
-  getDaysInMonth(year: number, month: number): number {
-    return new Date(year, month + 1, 0).getDate();
+  private init() {
+    const { calendar, _events } = this;
+    this._currentDate = calendar.currentDate;
+
+    this.initCalendar(this._currentDate);
+
+    if (calendar.data) {
+      calendar.data.forEach(({ day, data }) => {
+        if (!_events[day]) {
+          this._events[day] = [];
+        }
+        this._events[day].push(data);
+      });
+    }
   }
 
-  getCalendarWeeks(date: Date): Date[][] {
-    const weeks: Date[][] = [];
+  private initCalendar(date: Date) {
+    const weeks: Week[][] = [];
+
     const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const startDate = new Date(startOfMonth);
-    startDate.setDate(startDate.getDate() - startDate.getDay()); // Retrocede para o primeiro dia da semana
-    let currentDate = new Date(startDate);
+    startDate.setDate(startDate.getDate() - startDate.getDay());
+
+    const currentDate = new Date(startDate);
 
     while (currentDate <= endOfMonth || currentDate.getMonth() === date.getMonth()) {
-      const week: Date[] = [];
+      const week: Week[] = [];
       for (let i = 0; i < 7; i++) {
-        week.push(new Date(currentDate));
+        const day = new Date(currentDate);
+
+        week.push({
+          day,
+          isCurrentMonth: this.isCurrentMonth(day),
+          isToday: this.isToday(day)
+        });
+
         currentDate.setDate(currentDate.getDate() + 1);
       }
       weeks.push(week);
     }
 
-    return weeks;
+    this._weeks = weeks;
   }
-  verificarMesAtual(data: Date): boolean {
-    const dataAtual = new Date(this.currentDate);
+
+  private isCurrentMonth(data: Date): boolean {
+    const dataAtual = new Date(this._currentDate);
     const isCurrrentMoth =
       dataAtual.getFullYear() === data.getFullYear() && dataAtual.getMonth() === data.getMonth();
 
-    return !isCurrrentMoth;
+    return isCurrrentMoth;
   }
 
-  isToday(date: Date): boolean {
-    const currentDate = this.currentDate;
+  private isToday(date: Date): boolean {
+    const currentDate = new Date();
     date.setHours(0, 0, 0, 0);
     currentDate.setHours(0, 0, 0, 0);
 
     return currentDate.getTime() === date.getTime();
   }
 
-  addMonths(months: number): Date {
-    const newDate = new Date(this.currentDate);
-    newDate.setMonth(this.currentDate.getMonth() + months);
-    return newDate;
+  nextMonth(value: number) {
+    const newDate = new Date(this._currentDate);
+    newDate.setMonth(this._currentDate.getMonth() + value);
+
+    this._currentDate = newDate;
+
+    this.initCalendar(newDate);
   }
 }

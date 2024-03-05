@@ -1,41 +1,47 @@
-<section class="calendar">
+<section class="calendar" *ngIf="_currentDate">
   <div class="d-flex justify-content-between align-items-center header">
-    <div class="title">{{ title }}</div>
-    <div class="actions">
-      <button (click)="currentDate = addMonths(-1)"><</button>
-      <span>{{ currentDate | date : 'MMMM' }}</span>
-      <button (click)="currentDate = addMonths(1)">></button>
+    <div class="title">{{ calendar?.title }}</div>
+    <div class="actions" *ngIf="calendar?.showPreviousNextBtn">
+      <button (click)="nextMonth(-1)"><</button>
+      <span>{{ _currentDate | date : 'MMMM' }}</span>
+      <button (click)="nextMonth(1)">></button>
     </div>
   </div>
 
   <table>
     <thead>
       <tr>
-        <th *ngFor="let day of headers">{{ day }}</th>
+        <th *ngFor="let day of calendar?.headers">{{ day }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let week of getCalendarWeeks(currentDate)">
-        <td *ngFor="let day of week">
+      <tr *ngFor="let week of _weeks">
+        <td *ngFor="let item of week">
           <div
             class="body"
-            *ngIf="true || !verificarMesAtual(day)"
-            [ngClass]="{ 'no-current-month': verificarMesAtual(day) }"
-            (click)="dayClicked.next(day)"
+            *ngIf="calendar?.showPeriodBeforeAndAfter || item.isCurrentMonth"
+            [ngClass]="{ 'no-current-month': !item.isCurrentMonth }"
+            (click)="dayClicked.next(item.day)"
           >
-            <span class="day" [ngClass]="{ 'current-date': isToday(day) }">
-              {{ day | date : 'dd' }}
+            <span
+              class="day"
+              [ngClass]="{
+                'current-day': item.isToday,
+                'is-clickable': calendar?.actionWhenClickOnDay
+              }"
+            >
+              {{ item.day | date : 'dd' }}
             </span>
             <div class="data">
-              <ng-container *ngIf="data[day.toISOString().split('T')[0]]">
+              <ng-container *ngIf="_events[item.day.toISOString().split('T')[0]]">
                 <span
-                  *ngFor="let item of data[day.toISOString().split('T')[0]]"
+                  *ngFor="let event of _events[item.day.toISOString().split('T')[0]]"
                   class="value"
-                  (click)="valueClicked.next({day, item})"
-                  [ngClass]="item.class"
+                  (click)="dataClicked.next({ day: item.day, data: event.value })"
+                  [ngClass]="event.class"
                 >
                   <i></i>
-                  {{ item.value }}
+                  {{ event.value }}
                 </span>
               </ng-container>
             </div>
