@@ -23,9 +23,9 @@ jobs:
       #   run: npm run build
 
       - name: Add comment
-        run: |
-          echo "${BODY}" | gh issue comment ${{ 2 }} --body -
+        run: gh issue comment ${{ github.event.issue.number }} --body '${BODY}'
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BODY: |
             This issue is available for anyone to work on.
             **Make sure to reference this issue in your pull request.**
