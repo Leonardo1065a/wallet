@@ -23,12 +23,10 @@ jobs:
       #   run: npm run build
 
       - name: Add comment
-        run: gh issue comment '$NUMBER' --body '$BODY'
+        run: gh issue comment ${{ github.event.issue.number }} --body "${BODY}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.issue.number }}
-          BODY: >
+          BODY: |
             This issue is available for anyone to work on.
             **Make sure to reference this issue in your pull request.**
             :sparkles: Thank you for your contribution! :sparkles:
