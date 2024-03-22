@@ -6,7 +6,6 @@ on:
 
 jobs:
   outdated:
-    if: github.event.label.name == 'help wanted'
     runs-on: ubuntu-latest
     permissions:
       issues: write
