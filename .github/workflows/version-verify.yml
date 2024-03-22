@@ -24,7 +24,7 @@ jobs:
 
       - name: Add comment
         run: |
-          echo "${BODY}" | gh issue comment ${{ github.event.issue.number }} --body -
+          echo "${BODY}" | gh issue comment ${{ 2 }} --body -
         env:
           BODY: |
             This issue is available for anyone to work on.
