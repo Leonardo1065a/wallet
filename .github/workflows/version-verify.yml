@@ -2,7 +2,7 @@ name: Add Comment to PR
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   add-comment:
