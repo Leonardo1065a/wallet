@@ -1,0 +1,17 @@
+name: Waves-ui version verify
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  outdated :
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    steps:
+    - name: Hello
+      run: echo "Hello ${{ inputs.name }}"
