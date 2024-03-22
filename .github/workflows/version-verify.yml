@@ -23,7 +23,7 @@ jobs:
       #   run: npm run build
 
       - name: Add comment
-        run: gh issue comment "$NUMBER" --body "$BODY"
+        run: gh issue comment $NUMBER --body $BODY
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
