@@ -24,9 +24,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const message = "TEste comentario";
-            github.pulls.createReview({
+            github.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
+              issue_number: context.payload.pull_request.number,
               body: message
             });
