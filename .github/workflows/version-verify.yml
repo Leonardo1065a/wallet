@@ -10,12 +10,11 @@ jobs:
     permissions:
       issues: write
 
-    runs:
-      using: 'node20'
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v2
+        with:
+          node-version: '14'
 
       # - name: Instalar dependências
       #   run: npm install
