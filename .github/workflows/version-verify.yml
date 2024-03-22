@@ -10,6 +10,9 @@ jobs:
     permissions:
       issues: write
 
+    runs:
+      using: 'node20'
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v2
