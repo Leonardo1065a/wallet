@@ -32,7 +32,7 @@ const colors = {
       '200': '#ffffff',
       '300': '#d5d5d5',
       '400': '#fcfcfc',
-      '500': '#ededed',
+      '500': '#ffffff',
       '600': '#dedede',
       '700': '#cecece',
       '800': '#bfbfbf',

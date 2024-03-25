@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { styleGuide } from 'assets/style-guide-settings';
 import { ConfigurationService } from 'waves-ui';
-import { SplashScreenService } from './core/splash-screen.service';
+import { SplashScreenService } from './core/services';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,7 @@ export class RootService {
     splashScreenService: SplashScreenService
   ) {
     this.configService.init(() => {
-      setTimeout(() => {
-        splashScreenService.hide();
-      }, 800);
+      splashScreenService.hide();
     }, styleGuide);
   }
 }

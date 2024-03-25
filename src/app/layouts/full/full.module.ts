@@ -7,6 +7,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [FullComponent, SidebarComponent, ToolbarComponent],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule],
+  providers: []
 })
 export class FullModule {}

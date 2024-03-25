@@ -15,10 +15,24 @@ const routes: Routes = [
       },
       {
         path: 'overview',
+        data: {
+          title: 'Overview!'
+        },
         loadChildren: () =>
           import('./modules/overview/overview.module').then((m) => m.OverviewModule)
+      },
+      {
+        path: 'wallet',
+        data: {
+          title: 'Wallet'
+        },
+        loadChildren: () => import('./modules/wallet/wallet.module').then((m) => m.WalletModule)
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: 'overview'
   }
 ];
 

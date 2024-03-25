@@ -12,7 +12,12 @@ import { SideComponent } from './side/side.component';
   imports: [
     CommonModule,
     NgChartsModule,
-    RouterModule.forChild([{ path: '', component: OverviewComponent }])
+    RouterModule.forChild([
+      {
+        path: '',
+        component: OverviewComponent
+      }
+    ])
   ]
 })
 export class OverviewModule {}
