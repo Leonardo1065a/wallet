@@ -13,8 +13,10 @@ env:
 jobs:
   Vrify Version:
     runs-on: ubuntu-latest
+
     permissions:
       pull-requests: write
+      
     steps:
       - name: Checkout do código
         uses: actions/checkout@v2
