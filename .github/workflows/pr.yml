@@ -1,0 +1,24 @@
+name: 'Verify PR'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_REPO: ${{ github.repository }}
+  NUMBER: ${{ github.event.pull_request.number }}
+  BODY: This issue is available for anyone to work on.
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: See vars
+        run: |
+          echo O número do Pull Request é "$NUMBER"
+          echo O corpo do Pull Request é "$BODY"
+      - name: Add comment
+        run: gh pr comment "$NUMBER" --body "$BODY"
