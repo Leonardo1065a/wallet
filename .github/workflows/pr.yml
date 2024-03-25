@@ -11,6 +11,7 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GH_REPO: ${{ github.repository }}
   NUMBER: ${{ github.event.issue.number }}
+  LEO: Hello
   BODY: >
     This issue is available for anyone to work on.
     **Make sure to reference this issue in your pull request.**
@@ -22,5 +23,7 @@ jobs:
     permissions:
       issues: write
     steps:
+      - name: See vars
+        run: echo "$LEO",
       - name: Add comment
         run: gh issue comment "$NUMBER" --body "$BODY"
