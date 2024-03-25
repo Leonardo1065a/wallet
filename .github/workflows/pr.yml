@@ -24,6 +24,6 @@ jobs:
       issues: write
     steps:
       - name: See vars
-        run: echo "$LEO",
+        run: echo "$LEO" "$NUMBER" "$BODY"
       - name: Add comment
-        run: gh pull_request comment "$NUMBER" --body "$BODY"
+        run: gh pr comment "$NUMBER" --body "$BODY"
