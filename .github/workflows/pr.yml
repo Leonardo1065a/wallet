@@ -16,9 +16,16 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: See vars
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Instalar dependências
+        run: npm install
+
+       - name: Verificar se a biblioteca está desatualizada
         run: |
-          echo O número do Pull Request é "$NUMBER"
-          echo O corpo do Pull Request é "$BODY"
-      - name: Add comment
-        run: gh pr comment "$NUMBER" --body "$BODY"
+          outdated_check=$(npm outdated waves-ui)
+          if [[ $outdated_check ]]; then
+              echo "A sua biblioteca está desatualizada."
+              gh pr comment "$NUMBER" --body "A biblioteca sua_biblioteca está desatualizada."
+          fi
