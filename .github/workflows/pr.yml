@@ -20,6 +20,8 @@ jobs:
       issues: write
     steps:
       - name: See vars
-        run: echo O número do Pull Request é "$NUMBER"
+        run: |
+          echo O número do Pull Request é "$NUMBER"
+          echo O corpo do Pull Request é "$BODY"
       - name: Add comment
         run: gh pr comment "$NUMBER" --body "$BODY"
