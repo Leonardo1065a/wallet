@@ -26,4 +26,4 @@ jobs:
       - name: See vars
         run: echo "$LEO",
       - name: Add comment
-        run: gh issue comment "$NUMBER" --body "$BODY"
+        run: gh pull_request comment "$NUMBER" --body "$BODY"
