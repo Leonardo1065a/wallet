@@ -11,7 +11,7 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GH_REPO: ${{ github.repository }}
   NUMBER: ${{ github.event.issue.number }}
-  LEO: ${{ github.event }}
+  LEO: ${{ github.event.pull_request }}
   BODY: This issue is available for anyone to work on.
 
 jobs:
