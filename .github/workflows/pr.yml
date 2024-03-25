@@ -11,7 +11,6 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GH_REPO: ${{ github.repository }}
   NUMBER: ${{ github.event.issue.number }}
-  LEO: ${{ github.event.pull_request }}
   BODY: This issue is available for anyone to work on.
 
 jobs:
@@ -21,6 +20,6 @@ jobs:
       issues: write
     steps:
       - name: See vars
-        run: echo "$LEO" -> "$NUMBER" -> "$BODY"
+        run: echo "O número do Pull Request é ${{ github.event.pull_request.number }}"
       - name: Add comment
         run: gh pr comment "$NUMBER" --body "$BODY"
