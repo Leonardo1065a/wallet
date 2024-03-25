@@ -16,7 +16,7 @@ jobs:
 
     permissions:
       pull-requests: write
-      
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-       - name: Verificar se a biblioteca está desatualizada
+      - name: Verificar se a biblioteca está desatualizada
         run: |
           outdated_check=$(npm outdated waves-ui)
           echo "$outdated_check"
