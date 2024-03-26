@@ -11,7 +11,7 @@ env:
   BODY: This issue is available for anyone to work on.
 
 jobs:
-  Verify Version:
+  verify-version:
     runs-on: ubuntu-latest
 
     permissions:
@@ -23,3 +23,12 @@ jobs:
 
       - name: Instalar dependências
         run: npm install
+
+      - name: Verificar se a biblioteca está desatualizada
+        run: |
+          outdated_check=$(npm outdated waves-ui)
+          echo "$outdated_check"
+          if [ $outdated_check ]; then
+              echo "A sua biblioteca está desatualizada."
+              gh pr comment "$NUMBER" --body "A biblioteca Waves-ui está desatualizada."
+          fi
