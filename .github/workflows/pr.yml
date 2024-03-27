@@ -22,7 +22,6 @@ jobs:
         id: check_outdated
         run: |
           npm outdated waves-ui --json > outdated.json
-          echo "::set-output name=outdated::$(cat outdated.json)"
 
       - name: Checar atualizações
         run: |
