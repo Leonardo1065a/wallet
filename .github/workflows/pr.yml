@@ -32,12 +32,12 @@ jobs:
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
-            installed_version=$(node -pe "require('./package.json').dependencies['waves-ui']")
+            # installed_version=$(node -pe "require('./package.json').dependencies['waves-ui']")
             latest_version=$(npm show waves-ui version)
             echo "$latest_version"
-            echo "$installed_version"
+            # echo "$installed_version"
 
-            run: gh pr comment "$NUMBER" --body Versão atual "$installed_version" você pode atualizar para -> "$latest_version"
+            # run: gh pr comment "$NUMBER" --body Versão atual "$installed_version" você pode atualizar para -> "$latest_version"
           else
             echo "Não há atualizações disponíveis."
           fi
