@@ -18,6 +18,9 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Instalar dependências
+        run: npm install
+
       - name: Verificar dependências desatualizadas
         id: check_outdated
         run: |
