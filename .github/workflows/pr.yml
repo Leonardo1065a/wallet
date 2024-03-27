@@ -34,7 +34,7 @@ jobs:
             echo "$installed_version"
             comment="Existe uma versão atualizada do waves-ui. $installed_version -> $latest_version"
             echo "$comment"
-            gh pr comment "$NUMBER" --body "$outdated.json"
+            gh pr comment "$NUMBER" --body "$comment"
           else
             echo "Não há atualizações disponíveis."
           fi
