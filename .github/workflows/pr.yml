@@ -26,7 +26,8 @@ jobs:
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
-            cat outdated.json
+            latest_version=$(npm show waves-ui version)
+            echo "$latest_version"
           else
             echo "Não há atualizações disponíveis."
           fi
