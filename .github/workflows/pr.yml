@@ -27,4 +27,6 @@ jobs:
         run: |
           if [ -s outdated.json ]; then
             cat outdated.json
+          else
+            echo "Não há atualizações disponíveis."
           fi
