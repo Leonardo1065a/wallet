@@ -28,8 +28,4 @@ jobs:
         run: |
           if [ -s outdated.json ]; then
             echo "Há atualizações disponíveis."
-            # Tome a ação que desejar, por exemplo:
-            # echo "Existem atualizações para a biblioteca." >> atualizacoes.log
-          else
-            echo "Não há atualizações disponíveis."
           fi
