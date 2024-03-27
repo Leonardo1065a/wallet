@@ -32,7 +32,7 @@ jobs:
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui']")
             echo "$latest_version"
             echo "$installed_version"
-            comment=$("Existe uma versão atualizada do waves-ui. $installed_version -> $latest_version")
+            comment="Existe uma versão atualizada do waves-ui. $installed_version -> $latest_version"
             echo "$comment"
             # run: gh pr comment "$NUMBER" --body "$BODY"
           else
