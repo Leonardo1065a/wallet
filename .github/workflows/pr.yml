@@ -18,17 +18,18 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v2
-
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Verificar se a biblioteca está desatualizada
+      - name: Verificar dependências desatualizadas
+        id: check_outdated
         run: |
-          outdated_check=$(npm outdated waves-ui)
-          echo aqui "$outdated_check"
-          # if [ "$outdated_check" ]; then
-          #     echo A sua biblioteca está desatualizada.
-          #     gh pr comment "$NUMBER" --body "$BODY"
-          # fi
+          npm outdated waves-ui --json > outdated.json
+          echo "::set-output name=outdated::$(cat outdated.json)"
+
+      - name: Checar atualizações
+        run: |
+          if [ -s outdated.json ]; then
+            echo "Há atualizações disponíveis."
+            # Tome a ação que desejar, por exemplo:
+            # echo "Existem atualizações para a biblioteca." >> atualizacoes.log
+          else
+            echo "Não há atualizações disponíveis."
+          fi
