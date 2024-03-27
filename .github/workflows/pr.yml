@@ -27,8 +27,7 @@ jobs:
       - name: Verificar se a biblioteca está desatualizada
         run: |
           outdated_check=$(npm outdated waves-ui)
-          echo eu "$outdated_check"
-          if [ $outdated_check ]; then
-              echo "A sua biblioteca está desatualizada."
+          if [ "$outdated_check" ]; then
+              echo A sua biblioteca está desatualizada.
               gh pr comment "$NUMBER" --body "$BODY"
           fi
