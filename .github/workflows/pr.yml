@@ -18,6 +18,9 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
       - name: Instalar dependências
         run: npm install
 
