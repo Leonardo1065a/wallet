@@ -27,5 +27,5 @@ jobs:
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
-            echo outdated.json
+            cat outdated.json
           fi
