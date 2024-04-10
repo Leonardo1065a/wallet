@@ -33,7 +33,7 @@ jobs:
             echo "$latest_version"
             echo "$installed_version"
             
-            comment="Atualização Disponível
+            COMMENT="Atualização Disponível
 
             Existe uma atualização na biblioteca Waves-ui.
 
@@ -43,10 +43,12 @@ jobs:
             Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
             
             response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$GH_REPO/issues/$NUMBER/comments")
-            
-            echo "$response"
 
-            gh pr comment "$NUMBER" --body "$comment"
+            if echo "$response" | grep -q "\"body\": \"$COMMENT\""; then
+              echo "O comentário '$COMMENT' já existe no PR #$NUMBER."
+            else
+              gh pr comment "$NUMBER" --body "$COMMENT"
+            fi 
           else
             echo "Não há atualizações disponíveis."
           fi
