@@ -26,6 +26,7 @@ jobs:
         run: |
           npm outdated waves-ui --json > outdated.json
       - name: Checar atualizações
+        if: steps.check_comment.outputs.data == ''
         run: |
           if [ -s outdated.json ]; then
             latest_version=$(npm show waves-ui version)
@@ -37,12 +38,10 @@ jobs:
 
             Existe uma atualização na biblioteca Waves-ui.
 
-            Versão Antiga: $installed_version
+            Versão instalada: $installed_version
             Nova Versão: $latest_version
 
-            Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos.
-
-            Obrigado!"
+            Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
             gh pr comment "$NUMBER" --body "$comment"
           else
             echo "Não há atualizações disponíveis."
