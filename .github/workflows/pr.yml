@@ -26,7 +26,6 @@ jobs:
         run: |
           npm outdated waves-ui --json > outdated.json
       - name: Checar atualizações
-        if: steps.check_comment.outputs.data == ''
         run: |
           if [ -s outdated.json ]; then
             latest_version=$(npm show waves-ui version)
@@ -42,6 +41,11 @@ jobs:
             Nova Versão: $latest_version
 
             Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
+            
+            response=$(curl -s -H "Authorization: token $TOKEN" "https://api.github.com/repos/$OWNER/$REPO/issues/$NUMBER/comments")
+            
+            echo "$response"
+
             gh pr comment "$NUMBER" --body "$comment"
           else
             echo "Não há atualizações disponíveis."
