@@ -30,9 +30,7 @@ jobs:
           if [ -s outdated.json ]; then
             latest_version=$(npm show waves-ui version)
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui'].replace('^', '')")
-            echo "$latest_version"
-            echo "$installed_version"
-            
+
             COMMENT="Atualização Disponível
 
             Existe uma atualização na biblioteca Waves-ui.
@@ -45,7 +43,7 @@ jobs:
             response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$GH_REPO/issues/$NUMBER/comments")
 
             if echo "$response" | grep -q "\"body\": \"$COMMENT\""; then
-              echo "O comentário '$COMMENT' já existe no PR #$NUMBER."
+              echo "O comentário $COMMENT já existe no PR #$NUMBER."
             else
               gh pr comment "$NUMBER" --body "$COMMENT"
             fi 
