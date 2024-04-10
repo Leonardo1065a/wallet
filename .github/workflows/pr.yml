@@ -32,10 +32,17 @@ jobs:
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui'].replace('^', '')")
             echo "$latest_version"
             echo "$installed_version"
-            comment="Existe uma versão atualizada do waves-ui. 
-            Instalada: $installed_version 
-            Atual$latest_version"
-            echo "$comment"
+            
+            comment="Atualização Disponível
+
+            Existe uma atualização na biblioteca Waves-ui.
+
+            Versão Antiga: $installed_version
+            Nova Versão: $latest_version
+
+            Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos.
+
+            Obrigado!"
             gh pr comment "$NUMBER" --body "$comment"
           else
             echo "Não há atualizações disponíveis."
