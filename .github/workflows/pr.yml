@@ -28,7 +28,7 @@ jobs:
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
-            latest_version=$(npm show waves-ui version)
+            latest_version=$(npm show waves-ui version | cut -d " " -f 2)
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui']")
             echo "$latest_version"
             echo "$installed_version"
