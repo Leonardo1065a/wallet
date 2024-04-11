@@ -7,7 +7,7 @@ on:
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GH_REPO: ${{ github.repository }}
-  GH_OWNER: ${{ github.repository }}
+  GH_OWNER: ${{ github.repository_owner }}
   NUMBER: ${{ github.event.pull_request.number }}
   BODY: This issue is available for anyone to work on.
 
@@ -42,9 +42,9 @@ jobs:
 
             Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
             
-            response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$GH_REPO/issues/$NUMBER/comments")
+            response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$GH_OWNER/$GH_REPO/issues/$NUMBER/comments")
 
-            echo "aqui $OWNER"
+            echo "aqui $GH_OWNER"
 
             if echo "$response" | grep -q "\"body\": \"$COMMENT\""; then
               echo "O comentário $COMMENT já existe no PR #$NUMBER."
