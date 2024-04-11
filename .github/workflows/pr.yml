@@ -31,7 +31,8 @@ jobs:
             latest_version=$(npm show waves-ui version)
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui'].replace('^', '')")
 
-            COMMENT="Atualização Disponível
+            COMMENT="#$NUMBER.
+            Atualização Disponível
 
             Existe uma atualização na biblioteca Waves-ui.
 
@@ -41,8 +42,6 @@ jobs:
             Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
             
             response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$GH_REPO/issues/$NUMBER/comments")
-
-            echo "respons: $response"
 
             if echo "$response" | grep -q "\"body\": \"$COMMENT\""; then
               echo "O comentário $COMMENT já existe no PR #$NUMBER."
