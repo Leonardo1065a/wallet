@@ -46,7 +46,7 @@ jobs:
 
             echo "aqui $response"
 
-            if echo "$response" | grep -q "\"body\": \"$COMMENT\""; then
+            if [[ "$response" == *"#$NUMBER."* ]]; then
               echo "O comentário $COMMENT já existe no PR #$NUMBER."
             else
               gh pr comment "$NUMBER" --body "$COMMENT"
