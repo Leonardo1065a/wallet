@@ -44,7 +44,7 @@ jobs:
             
             response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$GH_OWNER/$GH_REPO/issues/$NUMBER/comments")
 
-            if [[ "$response" == *"$COMMENT"* ]]; then
+            if [[ "$response" == *"#$NUMBER."* ]]; then
               echo "O comentário $COMMENT já existe no PR #$NUMBER."
             else
               gh pr comment "$NUMBER" --body "$COMMENT"
