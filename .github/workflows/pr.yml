@@ -26,6 +26,9 @@ jobs:
         id: check_outdated
         run: |
           npm outdated waves-ui --json > outdated.json
+      - name: View outdated dependencies
+        run: |
+          cat outdated.json
       - name: Verificar comentário existente
         id: get_comments
         run: |
