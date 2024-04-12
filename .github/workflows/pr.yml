@@ -29,17 +29,16 @@ jobs:
       - name: Verificar comentário existente
         id: get_comments
         run: |
-          curl -L \
+          comments=$(curl -sSL \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/comments \
-            -o comments.json
+            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/comments)
+          echo "::set-env name=COMMENTS::$comments"
       - name: Read comments from file
         id: read_comments
         run: |
-          comments=$(cat comments.json)
-          echo "::set-output name=comments::$comment"
+          echo "Comments: $COMMENTS"
       - name: Use comments
         run: |
           echo "Comments: ${{ steps.read_comments.outputs.comments }}"
