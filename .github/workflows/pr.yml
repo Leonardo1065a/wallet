@@ -39,7 +39,7 @@ jobs:
         id: read_comments
         run: |
           comments=$(cat comments.json)
-          echo "::set-output name=comments::$comment
+          echo "::set-output name=comments::$comment"
       - name: Use comments
         run: |
           echo "Comments: ${{ steps.read_comments.outputs.comments }}"
