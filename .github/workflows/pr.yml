@@ -26,14 +26,14 @@ jobs:
         id: check_outdated
         run: |
           npm outdated waves-ui --json > outdated.json
-      - name: Verificar dependências desatualizadas
+      - name: Verificar comentarios existentes
         id: get_comment
         run: |
           curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer <$GH_TOKEN>" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/$NUMBER/comments --json > comments.json
+            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/$NUMBER/comments > comments.json
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
