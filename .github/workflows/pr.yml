@@ -26,42 +26,26 @@ jobs:
         id: check_outdated
         run: |
           npm outdated waves-ui --json > outdated.json
-      - name: View outdated dependencies
+      - name: Verificar dependências desatualizadas
+        id: get_comment
         run: |
-          ls -l
-          cat .\outdated.json
-      - name: Verificar comentário existente
-        id: get_comments
-        run: |
-          curl -sSL \
+          curl -L \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: Bearer <$GH_TOKEN>" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/comments > comments.txt
-      - name: Read comments from file
-        id: read_comments
-        run: |
-          COMMENTS=$(<comments.txt)
-      - name: Use comments
-        run: |
-          echo "Comments: $COMMENTS"
+            https://api.github.com/repos/$GH_OWNER/$GH_REPO/pulls/$NUMBER/comments --json > comments.json
       - name: Checar atualizações
         run: |
           if [ -s outdated.json ]; then
             latest_version=$(npm show waves-ui version)
             installed_version=$(node -pe "require('./package.json').dependencies['waves-ui'].replace('^', '')")
-
             COMMENT="#$NUMBER.
             Atualização Disponível
-
             Existe uma atualização na biblioteca Waves-ui.
-
             Versão instalada: $installed_version
             Nova Versão: $latest_version
-
             Por favor, verifique as notas de lançamento e atualize sua dependência para aproveitar as correções de bugs e novos recursos."
             
-
             # response=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$GH_OWNER/$GH_REPO/issues/$NUMBER/comments")
             response=$(curl -L \
             -H "Accept: application/vnd.github+json" \
@@ -69,7 +53,6 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/$GH_OWNER/$GH_REPO/issues/comments)
             echo "aqui $response"
-
             if [[ "$response" == *"#$NUMBER."* ]]; then
               echo "O comentário $COMMENT já existe no PR #$NUMBER."
             else
